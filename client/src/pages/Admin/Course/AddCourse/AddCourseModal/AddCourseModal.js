@@ -9,6 +9,7 @@ import "./AddCourseModal.css";
 import { useDispatch } from "react-redux";
 import { fetchCourseInfo } from "../../../../../redux/course/courseAction";
 import {GET__COURSES} from "../../../../../redux/course/courseTypes"
+import axios from "axios"
 
 const AddCourseModal = () => {
   const [show, setShow] = useState(false);
@@ -30,7 +31,7 @@ const AddCourseModal = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => {setShow(true)
  };
-
+ const axiosInstance = axios.create({baseURL : process.env.REACT_APP_API_URL})
   const dispatch=useDispatch()
 
 
@@ -47,9 +48,9 @@ const AddCourseModal = () => {
     formData.append("pdf", coursePdf);
   
 console.log(formData)
-    fetch("https://new-uwn9.onrender.com/post-course", {
+axiosInstance.post("/post-course", {
       body: formData,
-      method: "post",
+    
       enctype : "multipart/form-data",
       headers: {
         // 'Content-Type': 'multipart/form-data',

@@ -10,6 +10,7 @@ import Navbar1 from "../LandingPage/Navbar";
 import { Button } from "@mui/material";
 import { Modal, Form } from "react-bootstrap";
 import Toast_Comp from "../../components/Toast/Toast_Comp";
+import axios from "axios"
 
 const Profile = () => {
   const  user  = useSelector((state) => state.auth);
@@ -29,18 +30,13 @@ const Profile = () => {
   const [lgShow, setLgShow] = useState(false);
   const [courseThumbnail, setCourseThumbnail] = useState("");
   const [courseDescription, setCourseDescription] = useState("");
-
-
-
   const [imgLabel, setImgLabel] = useState("Choose photo");
-
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => {setShow(true)
  };
-
+ const axiosInstance = axios.create({baseURL : process.env.REACT_APP_API_URL})
 
 
   const courseFormHandler = (e) => {
@@ -52,9 +48,9 @@ const Profile = () => {
 
   
 console.log(formData)
-    fetch("http://localhost:5000/post-course", {
+axiosInstance.post("/post-course", {
       body: formData,
-      method: "post",
+
       enctype : "multipart/form-data",
       headers: {
         // 'Content-Type': 'multipart/form-data',

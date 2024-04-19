@@ -18,6 +18,7 @@ const Register = () => {
   const [toast, setToast] = useState(false);
   const history = useNavigate ();
   const {user} = useSelector((state) => state.auth);
+  
   const axiosInstance = axios.create({baseURL : process.env.REACT_APP_API_URL})
 
   const formSubmitHandler = (e) => {
